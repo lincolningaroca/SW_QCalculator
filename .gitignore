@@ -1,0 +1,4 @@
+*.user
+swmainclass.cpp
+swmainclass.ui
+swmainclass.h

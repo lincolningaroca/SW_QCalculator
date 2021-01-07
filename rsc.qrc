@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/correntometro.png</file>
+        <file>img/flotador.png</file>
+        <file>img/volumetrico.png</file>
+        <file>img/clean.png</file>
+        <file>img/build.png</file>
+        <file>img/database_table-add-256.png</file>
+    </qresource>
+</RCC>
