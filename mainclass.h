@@ -19,6 +19,8 @@ public:
   enum class  C_AreaTotal{At1,At2,At3};
   enum class  C_VelocidadTotal{Vt1,Vt2,Vt3};
   enum class  C_QParcial{Qp1,Qp2,Qp3};
+  //enumeracion para las columnas del QTableWidget caudal correntometro
+  enum ColNames{V,Velocidad,H,Profundidad};
 
 private slots:
   void on_btnLimpiar_clicked();
@@ -113,6 +115,20 @@ private slots:
 
   void on_dsbQ3_valueChanged(double arg1);
 
+  void on_pushButton_clicked();
+
+//  void on_pushButton_4_clicked();
+
+  void on_brnAgregar_clicked();
+
+  void on_pushButton_6_clicked();
+
+  void on_checkBox_stateChanged(int arg1);
+
+  void on_pushButton_5_clicked();
+
+  void on_pushButton_7_clicked();
+
 private:
   Ui::MainClass *ui;
   /**********************************************************************/
@@ -123,9 +139,20 @@ private:
   void qMetCub_segundo(double pLitrosSeg);
   void qMetCub_Dia(double qMetCubSeg);
   void setUpSpinBox();
+  void setUpDataCorrentometro();
+  void setUpDataResultados();
+  void setData(double val1, double val2, int _rowCount);
+  void setDataRes();
+  void calcularTotales();
+  void limpiarCtrCorr();
+  bool validarDatos();
 
   //metodo que carga las configuraciones iniciales del form pricipal
   void loadWindow();
+
+  uint v=0;
+  uint h=0;
+  bool calculate=false;
 
 
   /**********************************************************************/

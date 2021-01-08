@@ -1,13 +1,22 @@
 #include "mainclass.h"
 #include "ui_mainclass.h"
+#include <QHeaderView>
+#include <QDebug>
+#include <QMessageBox>
 
 MainClass::MainClass(QWidget *parent) :
   QWidget(parent), ui(new Ui::MainClass)
 {
   ui->setupUi(this);
-  setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+  loadWindow();
   setUpSpinBox();
   setUpSpinBoxF();
+  setUpDataCorrentometro();
+  setUpDataResultados();
+
+
+
+
 }
 
 MainClass::~MainClass()
@@ -91,12 +100,61 @@ void MainClass::setUpSpinBox()
 
 
 }
-//void MainClass::loadWindow()
-//{
-//  setWindowFlags(Qt::Dialog|Qt::MSWindowsFixedSizeDialogHint);
-//  ui->statusbar->showMessage("Powered by. Lincoln Ingaroca  SWSystem's");
 
-//}
+void MainClass::setUpDataCorrentometro()
+{
+  QStringList colums;
+  colums<<"V"<<"Velocidad (m/s)"<<"H"<<"Profundidad (cm)";
+  ui->tableWidget_4->setColumnCount(colums.count());
+  ui->tableWidget_4->setHorizontalHeaderLabels(colums);
+  //  ui->tableWidget_4->verticalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
+  ui->tableWidget_4->setColumnWidth(0,20);
+  ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
+  ui->tableWidget_4->setColumnWidth(2,20);
+  ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
+
+  //  ui->tableWidget->verticalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
+
+  ui->dsbTotalMetSeg_1->setMaximum(std::numeric_limits<double>::max());
+  ui->dsbTotalLitSeg_1->setMaximum(std::numeric_limits<double>::max());
+  ui->dsbTotalMetDia_1->setMaximum(std::numeric_limits<double>::max());
+  ui->dsbTotalMetSeg_1->setDecimals(6);
+  ui->dsbTotalLitSeg_1->setDecimals(6);
+  ui->dsbTotalMetDia_1->setDecimals(6);
+
+  //solo lectura
+  ui->dsbTotalMetDia_1->setReadOnly(true);
+  ui->dsbTotalMetDia_1->setFocusPolicy(Qt::NoFocus);
+  ui->dsbTotalMetSeg_1->setReadOnly(true);
+  ui->dsbTotalMetSeg_1->setFocusPolicy(Qt::NoFocus);
+  ui->dsbTotalLitSeg_1->setReadOnly(true);
+  ui->dsbTotalLitSeg_1->setFocusPolicy(Qt::NoFocus);
+
+
+
+
+
+}
+
+void MainClass::setUpDataResultados()
+{
+  QStringList colums;
+  colums<<"Q.."<<"Q Parciales (m3/s)";
+  ui->tableWidget_5->setColumnCount(colums.count());
+  ui->tableWidget_5->setHorizontalHeaderLabels(colums);
+  //  ui->tableWidget_4->verticalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
+  ui->tableWidget_5->setColumnWidth(0,20);
+  ui->tableWidget_5->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
+  //  ui->tableWidget_5->setColumnWidth(2,100);
+  //  ui->tableWidget_5->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
+}
+
+
+void MainClass::loadWindow()
+{
+  setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
+
+}
 
 /**********limpiar los controles***************/
 
@@ -450,13 +508,13 @@ void MainClass::on_btnVolumetrico_clicked()
 {
   //  if(_isClean==W_data) return;
 
-  ui->stackedWidget->setCurrentIndex(2);
+  ui->stackedWidget->setCurrentIndex(3);
   //  on_btnLimpiar_clicked();r
 }
 
 void MainClass::on_btnFlotador_clicked()
 {
-  ui->stackedWidget->setCurrentIndex(1);
+  ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainClass::on_btnCorrectometro_clicked()
@@ -840,4 +898,275 @@ void MainClass::on_dsbQ3_valueChanged(double arg1)
   calQMetrosSeg(ui->dsbQ1->value(),ui->dsbQ2->value(),arg1);
   calQLitrosSeg(ui->dsbResQMetSeg->value());
   calQMetrosDia(ui->dsbResQMetSeg->value());
+}
+
+//limpiar controles del panel caudal flotador
+void MainClass::on_pushButton_clicked()
+{
+  ui->dsbLongitud1->setValue(0);
+  ui->dsbT1->setValue(0);
+  ui->dsbT2->setValue(0);
+  ui->dsbT3->setValue(0);
+  ui->dsbV1->setValue(0);
+  ui->dsbV2->setValue(0);
+  ui->dsbV3->setValue(0);
+  ui->dsb_a1->setValue(0);
+  ui->dsb_a1s->setValue(0);
+  ui->dsb_h1->setValue(0);
+  ui->dsb_h2->setValue(0);
+  ui->dsb_h3->setValue(0);
+  ui->dsbA1->setValue(0);
+  ui->dsbA2->setValue(0);
+  ui->dsbA3->setValue(0);
+  ui->dsb_T1->setValue(0);
+  ui->dsb_T2->setValue(0);
+  ui->dsb_T3->setValue(0);
+  ui->dsb_V1->setValue(0);
+  ui->dsb_V2->setValue(0);
+  ui->dsb_V3->setValue(0);
+  ui->dsb_a2->setValue(0);
+  ui->dsb_a2s->setValue(0);
+  ui->dsb_h1s->setValue(0);
+  ui->dsb_h2s->setValue(0);
+  ui->dsb_h3s->setValue(0);
+  ui->dsb_A1->setValue(0);
+  ui->dsb_A2->setValue(0);
+  ui->dsb_A3->setValue(0);
+  ui->dsbTotalA1->setValue(0);
+  ui->dsbTotalA2->setValue(0);
+  ui->dsbTotalA3->setValue(0);
+  ui->dsbTotalV1->setValue(0);
+  ui->dsbTotalV2->setValue(0);
+  ui->dsbTotalV3->setValue(0);
+  ui->dsbQ1->setValue(0);
+  ui->dsbQ2->setValue(0);
+  ui->dsbQ3->setValue(0);
+  ui->dsbResQMetSeg->setValue(0);
+  ui->dsbResQLitSeg->setValue(0);
+  ui->dsbResQMetDia->setValue(0);
+  ui->dsbLongitud1->setFocus(Qt::OtherFocusReason);
+}
+
+//void MainClass::on_pushButton_4_clicked()
+//{
+//    ui->stackedWidget->setCurrentIndex(1);
+//}
+
+void MainClass::on_brnAgregar_clicked()
+{
+  if(calculate==true)
+    return;
+  if(ui->dsbSecciones->value()==0){
+      QMessageBox::warning(this,qApp->applicationName(),"El numero de segmentos debe ser mayor a cero.");
+      ui->dsbSecciones->setFocus(Qt::OtherFocusReason);
+      ui->dsbSecciones->selectAll();
+      return;
+    }
+  if(ui->tableWidget_4->rowCount()!=ui->dsbSecciones->value()+1)
+    setData(ui->dsbVelocidad->value(),ui->dsbProfundidad->value(),ui->dsbSecciones->value());
+
+
+
+
+  //  calculate=false;
+}
+void MainClass::setData(double val1, double val2,int _rowCount)
+{
+
+  for (int i=0;i<= _rowCount; i++) {
+      int rowCount=ui->tableWidget_4->rowCount();
+      //  ui->tableWidget_4->setRowCount(rowCount);
+      //primera columna
+      ui->tableWidget_4->insertRow(rowCount);
+      //  qDebug()<<rowCount;
+      QTableWidgetItem *item=new QTableWidgetItem(QString("v %1").arg(v));
+      ui->tableWidget_4->setItem(rowCount,V,item);
+
+      //segunda columna columna
+      //  ui->tableWidget_4->insertRow(rowCount);
+
+
+      QTableWidgetItem *item1=new QTableWidgetItem(0);
+      ui->tableWidget_4->setItem(rowCount,Velocidad,item1);
+      ui->tableWidget_4->setCellWidget(rowCount,Velocidad,new QDoubleSpinBox);
+      QDoubleSpinBox *sb=qobject_cast<QDoubleSpinBox *>(
+            ui->tableWidget_4->cellWidget(rowCount,Velocidad));
+      sb->setValue(val1);
+      //  qDebug()<<item1->data(Qt::DisplayRole).toString();
+      //tercera columna columna
+      //  ui->tableWidget_4->insertRow(rowCount);
+      QTableWidgetItem *item2=new QTableWidgetItem(QString("h %1").arg(h));
+      ui->tableWidget_4->setItem(rowCount,H,item2);
+      //cuarta columna columna
+      //  ui->tableWidget_4->insertRow(rowCount);
+      QTableWidgetItem *item3=new QTableWidgetItem(val2);
+      ui->tableWidget_4->setItem(rowCount,Profundidad,item3);
+      ui->tableWidget_4->setCellWidget(rowCount,Profundidad,new QDoubleSpinBox);
+      QDoubleSpinBox *sb2=qobject_cast<QDoubleSpinBox *>(
+            ui->tableWidget_4->cellWidget(rowCount,Profundidad));
+      sb2->setValue(val2);
+      v++;
+      h++;
+    }
+
+
+
+  ui->dsbVelocidad->setValue(0);
+  ui->dsbProfundidad->setValue(0);
+  ui->dsbA1->selectAll();
+  ui->dsbVelocidad->setFocus(Qt::OtherFocusReason);
+
+}
+
+void MainClass::setDataRes()
+{
+  for(int i=0;i<ui->tableWidget_4->rowCount()-1;i++){
+      //calcular m3/s
+
+      int rowCount=ui->tableWidget_5->rowCount();
+      ui->tableWidget_5->insertRow(rowCount);
+      //      QTableWidgetItem *item=new QTableWidgetItem();
+      ui->tableWidget_5->setItem(i,0,new QTableWidgetItem(QString("Q %1").arg(i+1)));
+      //      if(i==ui->tableWidget_4->rowCount()){
+      //           ui->tableWidget_5->setItem(i,0,new QTableWidgetItem(QString("te")));
+      //           break;
+      //          }
+
+
+    }
+  //  calcularTotales();
+  //  qDebug()<<ui->tableWidget_4->rowCount();
+}
+
+void MainClass::calcularTotales()
+{
+  double res,value1,value2,value3,value4=0;
+
+
+  for(int i=0;i<ui->tableWidget_4->rowCount()-1;i++){
+      QDoubleSpinBox *spb1=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i,1));
+      value1=spb1->value();
+      QDoubleSpinBox *spb2=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i+1,1));
+      value2=spb2->value();
+      QDoubleSpinBox *spb3=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i,3));
+      value3=spb3->value();
+      QDoubleSpinBox *spb4=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i+1,3));
+      value4=spb4->value();
+      res=(((value1+value2)/2)*(ui->dsbMedSegmento->value()*(value3+value4)/2))/10000;
+      ui->tableWidget_5->setItem(i,1,new QTableWidgetItem(QString::number(res)));
+
+    }
+  double result=0;
+  for(int i=0;i<ui->tableWidget_5->rowCount();i++){
+      result=result+ui->tableWidget_5->item(i,1)->data(Qt::DisplayRole).toDouble();
+//      qDebug()<<ui->tableWidget_5->item(i,1)->data(Qt::DisplayRole);
+    }
+  ui->dsbTotalMetSeg_1->setValue(result);
+//  qDebug()<<result;
+  ui->dsbTotalLitSeg_1->setValue((ui->dsbTotalMetSeg_1->value()*1000));
+  ui->dsbTotalMetDia_1->setValue((ui->dsbTotalMetSeg_1->value()*3600*24));
+  calculate=true;
+}
+
+void MainClass::limpiarCtrCorr()
+{
+  ui->dsbAncho->setValue(0);
+  ui->dsbSecciones->setValue(0);
+  ui->dsbMedSegmento->setValue(0);
+  //  ui->tableWidget_4->clear();
+  //  ui->tableWidget_5->clear();
+  if(ui->tableWidget_4->rowCount()!=-1){
+      for(int i=ui->tableWidget_4->rowCount();i>=0;i--){
+          ui->tableWidget_4->removeRow(i);
+
+        }
+
+    }
+  if(ui->tableWidget_5->rowCount()!=-1){
+      for(int i=ui->tableWidget_5->rowCount();i>=0;i--){
+          ui->tableWidget_5->removeRow(i);
+        }
+    }
+
+  v=0;
+  h=0;
+
+  ui->dsbAncho->setFocus(Qt::OtherFocusReason);
+}
+
+bool MainClass::validarDatos()
+{
+  if(ui->dsbAncho->value()==0||ui->dsbSecciones->value()==0||ui->dsbMedSegmento->value()==0){
+      QMessageBox::warning(this,qApp->applicationName(),
+                           "ingrese todos los datos.");
+      return false;
+    }
+
+  for (int i=0;i<ui->tableWidget_4->rowCount()-2 ;i++ ) {
+      QDoubleSpinBox *spb1=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i+1,1));
+      QDoubleSpinBox *spb2=qobject_cast<QDoubleSpinBox *>(ui->tableWidget_4->cellWidget(i+1,3));
+      if(spb1->value()==0||spb2->value()==0){
+          QMessageBox::warning(this,qApp->applicationName(),
+                               "ingrese todos los datos.");
+          return false;
+        }
+
+    }
+  return true;
+}
+
+
+
+void MainClass::on_pushButton_6_clicked()
+{
+  //  ui->tableWidget_4->setCurrentIndex()
+  if(ui->tableWidget_4->currentRow()!=-1)
+    {
+      ui->tableWidget_4->removeRow(ui->tableWidget_4->currentRow());
+      v--;
+      h--;
+    }
+  if(ui->tableWidget_4->currentRow()==-1)
+    {
+      if(ui->tableWidget_5->rowCount()!=-1){
+          for(int i=ui->tableWidget_5->rowCount();i>=0;i--){
+              ui->tableWidget_5->removeRow(i);
+            }
+        }
+
+    }
+  calculate=false;
+
+}
+
+void MainClass::on_checkBox_stateChanged(int arg1)
+{
+  if(arg1==Qt::Checked){
+      ui->dsbVelocidad->setEnabled(true);
+      ui->dsbProfundidad->setEnabled(true);
+    }else{
+      ui->dsbVelocidad->setEnabled(false);
+      ui->dsbProfundidad->setEnabled(false);
+    }
+
+}
+
+void MainClass::on_pushButton_5_clicked()
+{
+  if(!validarDatos())
+    return;
+  if(!calculate&&ui->tableWidget_4->rowCount()!=0){
+      setDataRes();
+      calcularTotales();
+    }
+//  ui->dsbTotalMetSeg_1->setValue()
+//  qDebug()<<ui->tableWidget_5->item(0,1)->data(Qt::DisplayRole);
+
+
+}
+
+void MainClass::on_pushButton_7_clicked()
+{
+  limpiarCtrCorr();
+  calculate=false;
 }
