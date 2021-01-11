@@ -29,9 +29,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
-#        swmainclass.cpp
-#        swmainclass.h
-#        swmainclass.ui
         mainclass.ui
         mainclass.cpp
         mainclass.h

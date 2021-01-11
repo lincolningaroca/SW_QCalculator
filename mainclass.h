@@ -24,109 +24,58 @@ public:
 
 private slots:
   void on_btnLimpiar_clicked();
-
   void on_btnVolumetrico_clicked();
-
   void on_btnFlotador_clicked();
-
   void on_btnCorrectometro_clicked();
-
   void on_dspVelocidad1_valueChanged(double arg1);
-
   void on_dspVelocidad2_valueChanged(double arg1);
-
   void on_dspVelocidad3_valueChanged(double arg1);
-
   void on_dspTiempo1_valueChanged(double arg1);
-
   void on_dspTiempo2_valueChanged(double arg1);
-
   void on_dspTiempo3_valueChanged(double arg1);
-
   void on_dsbLongitud1_valueChanged(double arg1);
-
   void on_dsbT1_valueChanged(double arg1);
-
   void on_dsbT2_valueChanged(double arg1);
-
   void on_dsbT3_valueChanged(double arg1);
-
   void on_dsb_T1_valueChanged(double arg1);
-
   void on_dsb_T2_valueChanged(double arg1);
-
   void on_dsb_T3_valueChanged(double arg1);
-
   void on_dsb_a1_valueChanged(double arg1);
-
   void on_dsb_a2_valueChanged(double arg1);
-
   void on_dsb_h1_valueChanged(double arg1);
-
   void on_dsb_h2_valueChanged(double arg1);
-
   void on_dsb_h3_valueChanged(double arg1);
-
   void on_dsb_h1s_valueChanged(double arg1);
-
   void on_dsb_h2s_valueChanged(double arg1);
-
   void on_dsb_h3s_valueChanged(double arg1);
-
   void on_dsbV1_valueChanged(double arg1);
-
   void on_dsb_V1_valueChanged(double arg1);
-
   void on_dsbV2_valueChanged(double arg1);
-
   void on_dsb_V2_valueChanged(double arg1);
-
   void on_dsbV3_valueChanged(double arg1);
-
   void on_dsb_V3_valueChanged(double arg1);
-
   void on_dsbA1_valueChanged(double arg1);
-
   void on_dsb_A1_valueChanged(double arg1);
-
   void on_dsbA2_valueChanged(double arg1);
-
   void on_dsb_A2_valueChanged(double arg1);
-
   void on_dsbA3_valueChanged(double arg1);
-
   void on_dsb_A3_valueChanged(double arg1);
-
   void on_dsbTotalA1_valueChanged(double arg1);
-
   void on_dsbTotalV1_valueChanged(double arg1);
-
   void on_dsbTotalA2_valueChanged(double arg1);
-
   void on_dsbTotalV2_valueChanged(double arg1);
-
   void on_dsbTotalA3_valueChanged(double arg1);
-
   void on_dsbTotalV3_valueChanged(double arg1);
-
   void on_dsbQ1_valueChanged(double arg1);
-
   void on_dsbQ2_valueChanged(double arg1);
-
   void on_dsbQ3_valueChanged(double arg1);
-
   void on_pushButton_clicked();
-
 //  void on_pushButton_4_clicked();
 
   void on_brnAgregar_clicked();
-
   void on_pushButton_6_clicked();
-
   void on_checkBox_stateChanged(int arg1);
-
   void on_pushButton_5_clicked();
-
   void on_pushButton_7_clicked();
 
 private:

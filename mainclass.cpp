@@ -13,10 +13,6 @@ MainClass::MainClass(QWidget *parent) :
   setUpSpinBoxF();
   setUpDataCorrentometro();
   setUpDataResultados();
-
-
-
-
 }
 
 MainClass::~MainClass()
@@ -113,6 +109,8 @@ void MainClass::setUpDataCorrentometro()
   ui->tableWidget_4->setColumnWidth(2,20);
   ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
 
+  ui->tableWidget_5->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
   //  ui->tableWidget->verticalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
 
   ui->dsbTotalMetSeg_1->setMaximum(std::numeric_limits<double>::max());
@@ -121,6 +119,9 @@ void MainClass::setUpDataCorrentometro()
   ui->dsbTotalMetSeg_1->setDecimals(6);
   ui->dsbTotalLitSeg_1->setDecimals(6);
   ui->dsbTotalMetDia_1->setDecimals(6);
+
+  ui->dsbAncho->setMaximum(999);
+  ui->dsbMedSegmento->setMaximum(999);
 
   //solo lectura
   ui->dsbTotalMetDia_1->setReadOnly(true);
@@ -508,13 +509,13 @@ void MainClass::on_btnVolumetrico_clicked()
 {
   //  if(_isClean==W_data) return;
 
-  ui->stackedWidget->setCurrentIndex(3);
+  ui->stackedWidget->setCurrentIndex(2);
   //  on_btnLimpiar_clicked();r
 }
 
 void MainClass::on_btnFlotador_clicked()
 {
-  ui->stackedWidget->setCurrentIndex(2);
+  ui->stackedWidget->setCurrentIndex(1);
 }
 
 void MainClass::on_btnCorrectometro_clicked()
@@ -1087,6 +1088,9 @@ void MainClass::limpiarCtrCorr()
           ui->tableWidget_5->removeRow(i);
         }
     }
+  ui->dsbTotalMetDia_1->setValue(0);
+  ui->dsbTotalMetSeg_1->setValue(0);
+  ui->dsbTotalLitSeg_1->setValue(0);
 
   v=0;
   h=0;
@@ -1135,6 +1139,9 @@ void MainClass::on_pushButton_6_clicked()
         }
 
     }
+  ui->dsbTotalMetDia_1->setValue(0);
+  ui->dsbTotalMetSeg_1->setValue(0);
+  ui->dsbTotalLitSeg_1->setValue(0);
   calculate=false;
 
 }
