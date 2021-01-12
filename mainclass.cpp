@@ -14,12 +14,8 @@ MainClass::MainClass(QWidget *parent) :
   setUpSpinBoxF();
   setUpDataCorrentometro();
   setUpDataResultados();
-//  ui->lblAcerca->installEventFilter(this);
-  ui->lblAcerca->setText("<a href=\"whatever\">Acerca de.</a>");
-  connect(ui->lblAcerca,&QLabel::linkActivated,this,[=](){
-    DlgAcercaDe *acercade=new DlgAcercaDe(this);
-    acercade->exec();
-  });
+  //  ui->lblAcerca->installEventFilter(this);
+  lblAbout();
 }
 
 MainClass::~MainClass()
@@ -35,7 +31,7 @@ void MainClass::setUpSpinBox()
   //  ui->dspVelocidad1->setDecimals(3);
 
   //set the minimum values
-//  ui->dspVelocidad2->setFocus();
+  //  ui->dspVelocidad2->setFocus();
   ui->dspVelocidad1->setMinimum(0);
   ui->dspVelocidad1->setMinimum(0);
   ui->dspVelocidad1->setMinimum(0);
@@ -96,10 +92,7 @@ void MainClass::setUpSpinBox()
   ui->qMetrosCubDia->setSuffix(" m3/día.");
   ui->qMetrosCubSeg->setSuffix(" m3/seg.");
 
-
-
   //resultados de caudales
-
 
 }
 
@@ -112,7 +105,7 @@ void MainClass::setUpDataCorrentometro()
   //  ui->tableWidget_4->verticalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
   ui->tableWidget_4->setColumnWidth(0,20);
   ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
-//  ui->tableWidget_4->horizontalHeader()->setEditTriggers()
+  //  ui->tableWidget_4->horizontalHeader()->setEditTriggers()
   ui->tableWidget_4->setColumnWidth(2,20);
   ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
   ui->tableWidget_4->horizontalHeader()->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -144,10 +137,6 @@ void MainClass::setUpDataCorrentometro()
   //set shortcut
   ui->brnAgregar->setShortcut(QKeySequence(Qt::Key_Enter));
 
-
-
-
-
 }
 
 void MainClass::setUpDataResultados()
@@ -170,16 +159,17 @@ void MainClass::loadWindow()
 
 }
 
-//void MainClass::lblAbout()
-//{
-//  ui->lblAcerca->openExternalLinks();
-//  ui->lblAcerca->setText("<a href=\"whatever\">Acerca de</a>");
+void MainClass::lblAbout()
+{
+  ui->lblAcerca->setText("<a href=\"whatever\">Acerca de.</a>");
+  connect(ui->lblAcerca,&QLabel::linkActivated,this,[=](){
+      DlgAcercaDe *acercade=new DlgAcercaDe(this);
+      acercade->exec();
+    });
 
-//}
+}
 
 /**********limpiar los controles***************/
-
-
 
 void MainClass::setUpSpinBoxF()
 {
@@ -639,27 +629,6 @@ void MainClass::calQMetrosDia(double val1)
 
 }
 
-//QPaintEngine *MainClass::paintEngine() const
-//{
-//  return QWidget::paintEngine();
-
-//}
-
-//bool MainClass::eventFilter(QObject *watched, QEvent *event)
-//{
-//  if(watched==ui->lblAcerca){
-//      if(event->type()==QEvent::MouseButtonPress){
-//          QMouseEvent *mouseEvent=static_cast<QMouseEvent *>(event);
-//          QMessageBox::information(this,qApp->applicationName(),"Mensaje");
-//          mouseEvent-
-//          return true;
-//        }else{
-//          return false;
-//        }
-//    }else{
-//      return MainClass::eventFilter(watched,event);
-//    }
-
 //}
 /******metodos del panel caudal flotador*****/
 void MainClass::on_dsbLongitud1_valueChanged(double arg1)
@@ -997,11 +966,6 @@ void MainClass::on_pushButton_clicked()
   ui->dsbLongitud1->setFocus(Qt::OtherFocusReason);
 }
 
-//void MainClass::on_pushButton_4_clicked()
-//{
-//    ui->stackedWidget->setCurrentIndex(1);
-//}
-
 void MainClass::on_brnAgregar_clicked()
 {
   if(calculate==true)
@@ -1015,13 +979,7 @@ void MainClass::on_brnAgregar_clicked()
   if(ui->tableWidget_4->rowCount()!=0){
       return;
     }
-//  if(ui->tableWidget_4->rowCount()!=ui->dsbSecciones->value()+1)
-//    setData(ui->dsbVelocidad->value(),ui->dsbProfundidad->value(),ui->dsbSecciones->value());
 
-
-
-
-  //  calculate=false;
 }
 void MainClass::setData(double val1, double val2,int _rowCount)
 {
@@ -1064,13 +1022,6 @@ void MainClass::setData(double val1, double val2,int _rowCount)
       v++;
       h++;
     }
-
-
-
-//  ui->dsbVelocidad->setValue(0);
-//  ui->dsbProfundidad->setValue(0);
-//  ui->dsbA1->selectAll();
-//  ui->dsbVelocidad->setFocus(Qt::OtherFocusReason);
 
 }
 
@@ -1115,10 +1066,10 @@ void MainClass::calcularTotales()
   double result=0;
   for(int i=0;i<ui->tableWidget_5->rowCount();i++){
       result=result+ui->tableWidget_5->item(i,1)->data(Qt::DisplayRole).toDouble();
-//      qDebug()<<ui->tableWidget_5->item(i,1)->data(Qt::DisplayRole);
+      //      qDebug()<<ui->tableWidget_5->item(i,1)->data(Qt::DisplayRole);
     }
   ui->dsbTotalMetSeg_1->setValue(result);
-//  qDebug()<<result;
+  //  qDebug()<<result;
   ui->dsbTotalLitSeg_1->setValue((ui->dsbTotalMetSeg_1->value()*1000));
   ui->dsbTotalMetDia_1->setValue((ui->dsbTotalMetSeg_1->value()*3600*24));
   calculate=true;
@@ -1174,8 +1125,6 @@ bool MainClass::validarDatos()
   return true;
 }
 
-
-
 void MainClass::on_pushButton_6_clicked()
 {
   //  ui->tableWidget_4->setCurrentIndex()
@@ -1184,7 +1133,7 @@ void MainClass::on_pushButton_6_clicked()
       ui->tableWidget_4->removeRow(ui->tableWidget_4->currentRow());
       v--;
       h--;
-//      calculate=true;
+      //      calculate=true;
     }
   if(ui->tableWidget_4->currentRow()==-1)
     {
@@ -1203,18 +1152,6 @@ void MainClass::on_pushButton_6_clicked()
 
 }
 
-//void MainClass::on_checkBox_stateChanged(int arg1)
-//{
-//  if(arg1==Qt::Checked){
-//      ui->dsbVelocidad->setEnabled(true);
-//      ui->dsbProfundidad->setEnabled(true);
-//    }else{
-//      ui->dsbVelocidad->setEnabled(false);
-//      ui->dsbProfundidad->setEnabled(false);
-//    }
-
-//}
-
 void MainClass::on_pushButton_5_clicked()
 {
   if(!validarDatos())
@@ -1223,8 +1160,8 @@ void MainClass::on_pushButton_5_clicked()
       setDataRes();
       calcularTotales();
     }
-//  ui->dsbTotalMetSeg_1->setValue()
-//  qDebug()<<ui->tableWidget_5->item(0,1)->data(Qt::DisplayRole);
+  //  ui->dsbTotalMetSeg_1->setValue()
+  //  qDebug()<<ui->tableWidget_5->item(0,1)->data(Qt::DisplayRole);
 
 
 }

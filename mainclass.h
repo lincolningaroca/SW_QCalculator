@@ -99,7 +99,7 @@ private:
   bool validarDatos();
   //metodo que carga las configuraciones iniciales del form pricipal
   void loadWindow();
-//  void lblAbout();
+  void lblAbout();
 
   uint v=0;
   uint h=0;
