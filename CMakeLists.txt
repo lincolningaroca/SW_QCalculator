@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
         mainclass.ui
         mainclass.cpp
         mainclass.h
+        swdoublespinbox.cpp
+        swdoublespinbox.h
         rsc.qrc
         appIcon.rc
         ${AAP_ICON}

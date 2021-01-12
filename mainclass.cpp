@@ -28,7 +28,7 @@ void MainClass::setUpSpinBox()
   //  ui->dspVelocidad1->setDecimals(3);
 
   //set the minimum values
-  ui->dspVelocidad2->setFocus();
+//  ui->dspVelocidad2->setFocus();
   ui->dspVelocidad1->setMinimum(0);
   ui->dspVelocidad1->setMinimum(0);
   ui->dspVelocidad1->setMinimum(0);
@@ -89,8 +89,7 @@ void MainClass::setUpSpinBox()
   ui->qMetrosCubDia->setSuffix(" m3/día.");
   ui->qMetrosCubSeg->setSuffix(" m3/seg.");
 
-  ui->dspVelocidad1->setFocus(Qt::OtherFocusReason);
-  ui->dspVelocidad1->selectAll();
+
 
   //resultados de caudales
 
@@ -106,8 +105,12 @@ void MainClass::setUpDataCorrentometro()
   //  ui->tableWidget_4->verticalHeader()->setSectionResizeMode(1,QHeaderView::Fixed);
   ui->tableWidget_4->setColumnWidth(0,20);
   ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Fixed);
+//  ui->tableWidget_4->horizontalHeader()->setEditTriggers()
   ui->tableWidget_4->setColumnWidth(2,20);
   ui->tableWidget_4->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Fixed);
+  ui->tableWidget_4->horizontalHeader()->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+
 
   ui->tableWidget_5->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
@@ -130,6 +133,9 @@ void MainClass::setUpDataCorrentometro()
   ui->dsbTotalMetSeg_1->setFocusPolicy(Qt::NoFocus);
   ui->dsbTotalLitSeg_1->setReadOnly(true);
   ui->dsbTotalLitSeg_1->setFocusPolicy(Qt::NoFocus);
+
+  //set shortcut
+  ui->brnAgregar->setShortcut(QKeySequence(Qt::Key_Enter));
 
 
 
@@ -510,17 +516,23 @@ void MainClass::on_btnVolumetrico_clicked()
   //  if(_isClean==W_data) return;
 
   ui->stackedWidget->setCurrentIndex(2);
+  ui->dspVelocidad1->setFocus(Qt::OtherFocusReason);
+  ui->dspVelocidad1->selectAll();
   //  on_btnLimpiar_clicked();r
 }
 
 void MainClass::on_btnFlotador_clicked()
 {
   ui->stackedWidget->setCurrentIndex(1);
+  ui->dsbLongitud1->setFocus(Qt::OtherFocusReason);
+  ui->dsbLongitud1->selectAll();
 }
 
 void MainClass::on_btnCorrectometro_clicked()
 {
   ui->stackedWidget->setCurrentIndex(0);
+  ui->dsbAncho->setFocus(Qt::OtherFocusReason);
+  ui->dsbAncho->selectAll();
 }
 /**
  * metodo change de los spin box, velicidad 1,2,3
@@ -963,6 +975,9 @@ void MainClass::on_brnAgregar_clicked()
       ui->dsbSecciones->selectAll();
       return;
     }
+  if(ui->tableWidget_4->rowCount()!=0){
+      return;
+    }
   if(ui->tableWidget_4->rowCount()!=ui->dsbSecciones->value()+1)
     setData(ui->dsbVelocidad->value(),ui->dsbProfundidad->value(),ui->dsbSecciones->value());
 
@@ -974,6 +989,7 @@ void MainClass::on_brnAgregar_clicked()
 void MainClass::setData(double val1, double val2,int _rowCount)
 {
 
+
   for (int i=0;i<= _rowCount; i++) {
       int rowCount=ui->tableWidget_4->rowCount();
       //  ui->tableWidget_4->setRowCount(rowCount);
@@ -982,6 +998,7 @@ void MainClass::setData(double val1, double val2,int _rowCount)
       //  qDebug()<<rowCount;
       QTableWidgetItem *item=new QTableWidgetItem(QString("v %1").arg(v));
       ui->tableWidget_4->setItem(rowCount,V,item);
+      item->setFlags(item->flags() ^ Qt::ItemIsEnabled);
 
       //segunda columna columna
       //  ui->tableWidget_4->insertRow(rowCount);
@@ -989,7 +1006,7 @@ void MainClass::setData(double val1, double val2,int _rowCount)
 
       QTableWidgetItem *item1=new QTableWidgetItem(0);
       ui->tableWidget_4->setItem(rowCount,Velocidad,item1);
-      ui->tableWidget_4->setCellWidget(rowCount,Velocidad,new QDoubleSpinBox);
+      ui->tableWidget_4->setCellWidget(rowCount,Velocidad,new SWDoubleSpinBox(this));
       QDoubleSpinBox *sb=qobject_cast<QDoubleSpinBox *>(
             ui->tableWidget_4->cellWidget(rowCount,Velocidad));
       sb->setValue(val1);
@@ -998,11 +1015,12 @@ void MainClass::setData(double val1, double val2,int _rowCount)
       //  ui->tableWidget_4->insertRow(rowCount);
       QTableWidgetItem *item2=new QTableWidgetItem(QString("h %1").arg(h));
       ui->tableWidget_4->setItem(rowCount,H,item2);
+      item2->setFlags(item2->flags()&(~Qt::ItemIsEnabled));
       //cuarta columna columna
       //  ui->tableWidget_4->insertRow(rowCount);
       QTableWidgetItem *item3=new QTableWidgetItem(val2);
       ui->tableWidget_4->setItem(rowCount,Profundidad,item3);
-      ui->tableWidget_4->setCellWidget(rowCount,Profundidad,new QDoubleSpinBox);
+      ui->tableWidget_4->setCellWidget(rowCount,Profundidad,new SWDoubleSpinBox(this));
       QDoubleSpinBox *sb2=qobject_cast<QDoubleSpinBox *>(
             ui->tableWidget_4->cellWidget(rowCount,Profundidad));
       sb2->setValue(val2);
@@ -1129,6 +1147,7 @@ void MainClass::on_pushButton_6_clicked()
       ui->tableWidget_4->removeRow(ui->tableWidget_4->currentRow());
       v--;
       h--;
+//      calculate=true;
     }
   if(ui->tableWidget_4->currentRow()==-1)
     {
@@ -1142,6 +1161,7 @@ void MainClass::on_pushButton_6_clicked()
   ui->dsbTotalMetDia_1->setValue(0);
   ui->dsbTotalMetSeg_1->setValue(0);
   ui->dsbTotalLitSeg_1->setValue(0);
+  ui->dsbSecciones->setValue(ui->tableWidget_4->rowCount()-1);
   calculate=false;
 
 }

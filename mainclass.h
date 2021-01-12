@@ -2,6 +2,7 @@
 #define MAINCLASS_H
 
 #include <QWidget>
+#include "swdoublespinbox.h"
 
 namespace Ui {
   class MainClass;
