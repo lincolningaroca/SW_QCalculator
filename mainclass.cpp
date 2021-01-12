@@ -3,6 +3,7 @@
 #include <QHeaderView>
 #include <QDebug>
 #include <QMessageBox>
+#include "dlgacercade.h"
 
 MainClass::MainClass(QWidget *parent) :
   QWidget(parent), ui(new Ui::MainClass)
@@ -13,6 +14,12 @@ MainClass::MainClass(QWidget *parent) :
   setUpSpinBoxF();
   setUpDataCorrentometro();
   setUpDataResultados();
+//  ui->lblAcerca->installEventFilter(this);
+  ui->lblAcerca->setText("<a href=\"whatever\">Acerca de.</a>");
+  connect(ui->lblAcerca,&QLabel::linkActivated,this,[=](){
+    DlgAcercaDe *acercade=new DlgAcercaDe(this);
+    acercade->exec();
+  });
 }
 
 MainClass::~MainClass()
@@ -162,6 +169,13 @@ void MainClass::loadWindow()
   setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
 
 }
+
+//void MainClass::lblAbout()
+//{
+//  ui->lblAcerca->openExternalLinks();
+//  ui->lblAcerca->setText("<a href=\"whatever\">Acerca de</a>");
+
+//}
 
 /**********limpiar los controles***************/
 
@@ -624,6 +638,29 @@ void MainClass::calQMetrosDia(double val1)
   ui->dsbResQMetDia->setValue(res);
 
 }
+
+//QPaintEngine *MainClass::paintEngine() const
+//{
+//  return QWidget::paintEngine();
+
+//}
+
+//bool MainClass::eventFilter(QObject *watched, QEvent *event)
+//{
+//  if(watched==ui->lblAcerca){
+//      if(event->type()==QEvent::MouseButtonPress){
+//          QMouseEvent *mouseEvent=static_cast<QMouseEvent *>(event);
+//          QMessageBox::information(this,qApp->applicationName(),"Mensaje");
+//          mouseEvent-
+//          return true;
+//        }else{
+//          return false;
+//        }
+//    }else{
+//      return MainClass::eventFilter(watched,event);
+//    }
+
+//}
 /******metodos del panel caudal flotador*****/
 void MainClass::on_dsbLongitud1_valueChanged(double arg1)
 {
@@ -978,8 +1015,8 @@ void MainClass::on_brnAgregar_clicked()
   if(ui->tableWidget_4->rowCount()!=0){
       return;
     }
-  if(ui->tableWidget_4->rowCount()!=ui->dsbSecciones->value()+1)
-    setData(ui->dsbVelocidad->value(),ui->dsbProfundidad->value(),ui->dsbSecciones->value());
+//  if(ui->tableWidget_4->rowCount()!=ui->dsbSecciones->value()+1)
+//    setData(ui->dsbVelocidad->value(),ui->dsbProfundidad->value(),ui->dsbSecciones->value());
 
 
 
@@ -1030,10 +1067,10 @@ void MainClass::setData(double val1, double val2,int _rowCount)
 
 
 
-  ui->dsbVelocidad->setValue(0);
-  ui->dsbProfundidad->setValue(0);
-  ui->dsbA1->selectAll();
-  ui->dsbVelocidad->setFocus(Qt::OtherFocusReason);
+//  ui->dsbVelocidad->setValue(0);
+//  ui->dsbProfundidad->setValue(0);
+//  ui->dsbA1->selectAll();
+//  ui->dsbVelocidad->setFocus(Qt::OtherFocusReason);
 
 }
 
@@ -1166,17 +1203,17 @@ void MainClass::on_pushButton_6_clicked()
 
 }
 
-void MainClass::on_checkBox_stateChanged(int arg1)
-{
-  if(arg1==Qt::Checked){
-      ui->dsbVelocidad->setEnabled(true);
-      ui->dsbProfundidad->setEnabled(true);
-    }else{
-      ui->dsbVelocidad->setEnabled(false);
-      ui->dsbProfundidad->setEnabled(false);
-    }
+//void MainClass::on_checkBox_stateChanged(int arg1)
+//{
+//  if(arg1==Qt::Checked){
+//      ui->dsbVelocidad->setEnabled(true);
+//      ui->dsbProfundidad->setEnabled(true);
+//    }else{
+//      ui->dsbVelocidad->setEnabled(false);
+//      ui->dsbProfundidad->setEnabled(false);
+//    }
 
-}
+//}
 
 void MainClass::on_pushButton_5_clicked()
 {

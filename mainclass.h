@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "swdoublespinbox.h"
+#include <QMouseEvent>
 
 namespace Ui {
   class MainClass;
@@ -75,7 +76,7 @@ private slots:
 
   void on_brnAgregar_clicked();
   void on_pushButton_6_clicked();
-  void on_checkBox_stateChanged(int arg1);
+//  void on_checkBox_stateChanged(int arg1);
   void on_pushButton_5_clicked();
   void on_pushButton_7_clicked();
 
@@ -96,9 +97,9 @@ private:
   void calcularTotales();
   void limpiarCtrCorr();
   bool validarDatos();
-
   //metodo que carga las configuraciones iniciales del form pricipal
   void loadWindow();
+//  void lblAbout();
 
   uint v=0;
   uint h=0;
@@ -119,6 +120,12 @@ private:
   void calQMetrosDia(double val1);
   //
 
+
+  // QPaintDevice interface
+//public:
+//  virtual QPaintEngine *paintEngine() const override;
+//  // QObject interface
+//  virtual bool eventFilter(QObject *watched, QEvent *event) override;
 };
 
 #endif // MAINCLASS_H

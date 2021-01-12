@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
         mainclass.h
         swdoublespinbox.cpp
         swdoublespinbox.h
+        dlgacercade.cpp
+        dlgacercade.h
+        dlgacercade.ui
         rsc.qrc
         appIcon.rc
         ${AAP_ICON}
