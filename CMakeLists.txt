@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
         dlgacercade.cpp
         dlgacercade.h
         dlgacercade.ui
+        qeasysettings.cpp
+        qeasysettings.hpp
         rsc.qrc
         appIcon.rc
         ${AAP_ICON}

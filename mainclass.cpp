@@ -16,6 +16,7 @@ MainClass::MainClass(QWidget *parent) :
   setUpDataResultados();
   //  ui->lblAcerca->installEventFilter(this);
   lblAbout();
+  setTheme(ui->comboBox->currentIndex());
 }
 
 MainClass::~MainClass()
@@ -162,10 +163,7 @@ void MainClass::loadWindow()
 void MainClass::lblAbout()
 {
   ui->lblAcerca->setText("<a href=\"whatever\">Acerca de.</a>");
-  connect(ui->lblAcerca,&QLabel::linkActivated,this,[=](){
-      DlgAcercaDe *acercade=new DlgAcercaDe(this);
-      acercade->exec();
-    });
+  connect(ui->lblAcerca,&QLabel::linkActivated,this,&MainClass::showDialog);
 
 }
 
@@ -979,9 +977,10 @@ void MainClass::on_brnAgregar_clicked()
   if(ui->tableWidget_4->rowCount()!=0){
       return;
     }
+  setData(ui->dsbSecciones->value());
 
 }
-void MainClass::setData(double val1, double val2,int _rowCount)
+void MainClass::setData(int _rowCount)
 {
 
 
@@ -1004,7 +1003,7 @@ void MainClass::setData(double val1, double val2,int _rowCount)
       ui->tableWidget_4->setCellWidget(rowCount,Velocidad,new SWDoubleSpinBox(this));
       QDoubleSpinBox *sb=qobject_cast<QDoubleSpinBox *>(
             ui->tableWidget_4->cellWidget(rowCount,Velocidad));
-      sb->setValue(val1);
+      sb->setValue(0);
       //  qDebug()<<item1->data(Qt::DisplayRole).toString();
       //tercera columna columna
       //  ui->tableWidget_4->insertRow(rowCount);
@@ -1013,12 +1012,12 @@ void MainClass::setData(double val1, double val2,int _rowCount)
       item2->setFlags(item2->flags()&(~Qt::ItemIsEnabled));
       //cuarta columna columna
       //  ui->tableWidget_4->insertRow(rowCount);
-      QTableWidgetItem *item3=new QTableWidgetItem(val2);
+      QTableWidgetItem *item3=new QTableWidgetItem(0);
       ui->tableWidget_4->setItem(rowCount,Profundidad,item3);
       ui->tableWidget_4->setCellWidget(rowCount,Profundidad,new SWDoubleSpinBox(this));
       QDoubleSpinBox *sb2=qobject_cast<QDoubleSpinBox *>(
             ui->tableWidget_4->cellWidget(rowCount,Profundidad));
-      sb2->setValue(val2);
+      sb2->setValue(0);
       v++;
       h++;
     }
@@ -1170,4 +1169,45 @@ void MainClass::on_pushButton_7_clicked()
 {
   limpiarCtrCorr();
   calculate=false;
+}
+
+void MainClass::on_comboBox_activated(int index)
+{
+  setTheme(index);
+}
+void MainClass::setTheme(int index)
+{
+  //  QEasySettings::Style style=static_cast<QEasySettings::Style>(index);
+  //  QEasySettings::setStyle(style);
+
+  QString styleSheet;
+  styleSheet="QDoubleSpinBox#dsbLongitud2,#dsbV1,#dsbV2,#dsbV3,#dsb_a1s,#dsbA1,#dsbA2,"
+"#dsbA3,#dsb_V1,#dsb_V2,#dsb_V3,#dsb_a2s,#dsb_A1,#dsb_A2,#dsb_A3,#dsbQ1,#dsbQ2,#dsbQ3,"
+"#dsbTotalA1,#dsbTotalA2,#dsbTotalA3,#dsbTotalV1,#dsbTotalV2,#dsbTotalV3,#dsbResQMetSeg"
+",#dsbResQLitSeg,#dsbResQMetDia,#dsbPromedio,#dspTiempoPromedio,#qMetrosCubSeg,#qLitrosSeg,"
+"#qMetrosCubDia,#dsbTotalMetSeg_1,#dsbTotalLitSeg_1,#dsbTotalMetDia_1{"
+"background-color: #262626;"
+"color: rgb(249, 38, 114);"
+"}";
+  //setStyleSheet(styleSheet);
+  if(index==0){
+      //      qDebug()<<index;
+
+      QEasySettings::setStyle(QEasySettings::Style::lightFusion);
+      setStyleSheet(styleSheet);
+      theme=0;
+    }else{
+      QEasySettings::setStyle(QEasySettings::Style::darkFusion);
+      setStyleSheet(styleSheet);
+      theme=1;
+      //      qDebug()<<index;
+    }
+
+}
+
+void MainClass::showDialog()
+{
+  DlgAcercaDe *acercade=new DlgAcercaDe(theme,this);
+  acercade->exec();
+
 }

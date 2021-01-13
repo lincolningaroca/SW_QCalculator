@@ -52,11 +52,8 @@ Powered by:
        <property name="text">
         <string/>
        </property>
-       <property name="pixmap">
-        <pixmap resource="rsc.qrc">:/img/logoEmpresa.png</pixmap>
-       </property>
        <property name="scaledContents">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -134,8 +131,6 @@ Powered by:
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="rsc.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

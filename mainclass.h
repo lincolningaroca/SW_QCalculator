@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "swdoublespinbox.h"
 #include <QMouseEvent>
+#include "qeasysettings.hpp"
 
 namespace Ui {
   class MainClass;
@@ -80,6 +81,8 @@ private slots:
   void on_pushButton_5_clicked();
   void on_pushButton_7_clicked();
 
+  void on_comboBox_activated(int index);
+
 private:
   Ui::MainClass *ui;
   /**********************************************************************/
@@ -92,7 +95,7 @@ private:
   void setUpSpinBox();
   void setUpDataCorrentometro();
   void setUpDataResultados();
-  void setData(double val1, double val2, int _rowCount);
+  void setData(int _rowCount);
   void setDataRes();
   void calcularTotales();
   void limpiarCtrCorr();
@@ -100,6 +103,9 @@ private:
   //metodo que carga las configuraciones iniciales del form pricipal
   void loadWindow();
   void lblAbout();
+  void setTheme(int index);
+  void showDialog();
+  int theme=0;
 
   uint v=0;
   uint h=0;
