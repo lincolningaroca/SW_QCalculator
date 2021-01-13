@@ -1208,6 +1208,7 @@ void MainClass::setTheme(int index)
 void MainClass::showDialog()
 {
   DlgAcercaDe *acercade=new DlgAcercaDe(theme,this);
+  acercade->setWindowTitle(qApp->applicationName().append(" - Acerca de"));
   acercade->exec();
 
 }
